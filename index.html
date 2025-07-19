@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MT Odontología Integral</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>MT ODONTOLOGÍA INTEGRAL</h1>
+  </header>
+  <div class="user-auth">
+    <div class="auth-container">
+      <form class="login-form" action="login.html" method="post">
+        <h2>Iniciar Sesión</h2>
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Ingresar</button>
+      </form>
+      <div class="register-link">
+        <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <nav class="sidebar">
+      <button id="btn-inicio">Inicio</button>
+      <button id="btn-pedircita">Pedir una cita</button>
+      <button id="btn-tratamientos">Tratamientos</button>
+      <button id="btn-clinicas">Clinicas</button>
+      <button id="btn-blog">Blog</button>
+    </nav>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
+

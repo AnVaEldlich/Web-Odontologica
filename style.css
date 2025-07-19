@@ -1,0 +1,295 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
+/* HTML y body */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* Evita scroll horizontal */
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-image: url('img/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Encabezado */
+header h1{
+  background-color: #4a90e2;
+  text-align: center;
+  padding: 20px;
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  color: white;
+  border-bottom: 4px solid #003366;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal */
+.container {
+  display: flex;
+  gap: 20px;
+  margin: 0 20px;
+  margin-top: 60px;
+  position: fixed;
+  top: 100px;
+}
+
+/* Barra lateral */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+}
+
+.sidebar button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #003366;
+  transform: scale(1.05);
+  cursor: pointer;
+  color:white;
+}
+
+
+
+
+/* Autenticación de usuario */
+.user-auth {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 15px;
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.user-auth:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.user-auth button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.user-auth button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
+.Tratamientos {
+  
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+  margin-left: 200px;
+  gap: 20px;
+  display: flex;
+}
+
+
+.tarjeta {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 400px;
+  cursor: pointer;
+}
+
+#ximg {
+
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin: auto;
+  display: block;
+  
+  
+}
+.tarjeta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.cita-formulario {
+  display: flex;
+  margin-left: 200px;
+  flex-wrap: wrap;
+  
+}
+
+
+.formulario-cita {
+  max-width: 500px;
+  margin: 50px auto;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.formulario-cita h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.campo label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.campo input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.boton {
+  text-align: center;
+}
+
+.boton button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.boton button:hover {
+  background-color: #003366;
+}
+
+
+.clinicas-container {
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: auto;
+  display: block;
+  background-color: #f9f9f9;
+  width: 500px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+.clinicas-lista {
+  flex: 1 1 300px;
+}
+
+.clinica {
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+}
+
+.clinica h3 {
+  margin-bottom: 0.5rem;
+}
+
+.clinica p {
+  margin: 0.3rem 0;
+}
+
+.clinica button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.clinica button:hover {
+  background-color: #003366;
+}
+
+.clinicas-mapa {
+  flex: 1 1 500px;
+}
+
+.BLOG {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Artículo */
+.BLOG h2 {
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+.BLOG h3 {
+  color: #4a90e2;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.BLOG p {
+  margin-bottom: 15px;
+}
+
+.BLOG ul,
+.BLOG ol {
+  margin: 0 0 20px 20px;
+}
+
+.BLOG li {
+  margin-bottom: 8px;
+}
+
+/* Footer */
+footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+

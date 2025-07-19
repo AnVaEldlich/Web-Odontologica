@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MT Odontología Integral</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header>
+    <h1>PEDIR CITAS</h1>
+</header>
+<section class="pedir-cita">
+    <div class="formulario-cita">
+    <h2>Pide tu cita</h2>
+    <p style="text-align: center;">Te contactaremos pronto</p>
+        <form>
+            <div class="campo">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="campo">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+            </div>
+            <div class="campo">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+            </div>
+            <div class="campo">
+                <label for="tratamiento">Tratamiento:</label>
+                <select id="tratamiento" name="tratamiento" required>
+                    <option value="">Selecciona un tratamiento</option>
+                    <option value="caries">Caries</option>
+                    <option value="endodoncia">Endodoncia</option>
+                    <option value="ortodoncia">Ortodoncia</option>
+                    <option value="periodoncia">Periodoncia</option>
+                    <option value="odontopediatria">Odontopediatría</option>
+                    <option value="implantes">Implantes Dentales</option>
+                    <option value="blanqueamiento">Blanqueamiento Dental</option>
+                    <option value="cirugia">Cirugía Oral</option>
+                <select>
+            <div class="campo">
+            <br>
+            <label for="fecha">Fecha de la Cita:</label>
+            <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="campo">
+            <label for="hora">Hora de la Cita:</label>
+            <input type="time" id="hora" name="hora" required>
+            </div>
+            <div class="boton">
+            <button type="submit">Enviar</button>
+        </div>
+        </form>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <nav class="sidebar">
+        <button id="btn-inicio">Inicio</button>
+        <button id="btn-pedircita">Pedir una cita</button>
+        <button id="btn-tratamientos">Tratamientos</button>
+        <button id="btn-clinicas">Clinicas</button>
+        <button id="btn-blog">Blog</button>
+    </nav>
+</div>
+  <script src="index.js"></script>
+</body>
+</html>
+
