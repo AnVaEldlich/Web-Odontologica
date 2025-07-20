@@ -1,25 +1,25 @@
+const express = require('express');
+const connect = require('./db');
+const env = require('dotenv').config();
 
 
+const path = require('path');
 
+const app = express();
+const PORT = 3000;
 
-document.getElementById("btn-inicio").addEventListener("click", function() {
-  window.location.href = "index.html";
+// Servir archivos estáticos desde la carpeta "Public"
+app.use(express.static(path.join(__dirname, 'Public')));
+
+// Habilitar recibir formularios
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Ruta raíz que sirve tu index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Public', 'index.html'));
 });
 
-document.getElementById("btn-pedircita").addEventListener("click", function() {
-  window.location.href = "pedircita.html";
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-document.getElementById("btn-tratamientos").addEventListener("click", function() {
-  window.location.href = "Tratamientos.html";
-});
-
-document.getElementById("btn-clinicas").addEventListener("click", function() {
-  window.location.href = "clinicas.html";
-});
-
-
-document.getElementById("btn-blog").addEventListener("click", function() {
-   window.location.href = "Blog.html";
-});
-
