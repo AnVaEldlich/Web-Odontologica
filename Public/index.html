@@ -4,44 +4,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MT Odontología Integral</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Odontología Integral</title>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 
 <body>
   <header>
-    <h1>MT ODONTOLOGÍA INTEGRAL</h1>
+    <!-- <h1 class="title-web">ODONTOLOGÍA INTEGRAL</h1> -->
   </header>
-  <div class="user-auth">
-    <div class="auth-container">
-      <form class="login-form" action="login.html" method="post">
-        <h2>Iniciar Sesión</h2>
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Ingresar</button>
-      </form>
-      <div class="register-link">
-        <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
+  <!-- contenido principal -->
+  <main class="main-content">
+   <div class="form-container">
+    <!-- formulario pestañas -->
+    <div class="form-tabs">
+        <button class="tab-button" onclick="switchTab('patient')" data-tab="patient">
+          <div class="tab-icon"></div>
+          Soy Paciente
+        </button>
+        <button class="tab-button" onclick="switchTab('doctor')" data-tab="doctor">
+          <div class="tab-icon"></div>
+          Soy Odontólogo
+      </button>
       </div>
-    </div>
+      <!-- formulario de login -->
+       <div class="form-content">
+         <h2 class="form-title">Acceder a la cuenta</h2>
+         <form id="loginForm" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+              <div class="input-with-icon">
+                  <span class="input-icon">✉</span>
+                  <input 
+                      type="email" 
+                      id="email" 
+                      class="form-input" 
+                      placeholder="Correo electrónico*"
+                      required
+                      oninput="validateForm()"
+                  >
+              </div>
+              <div class="error-message" id="email-error">
+                  El campo Correo electrónico* es obligatorio
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="input-with-icon">
+                  <span class="input-icon">🔒</span>
+                  <input 
+                      type="password" 
+                      id="password" 
+                      class="form-input" 
+                      placeholder="Contraseña"
+                      required
+                      oninput="validateForm()"
+                  >
+                  <button 
+                      type="button" 
+                      class="password-toggle" 
+                      onclick="togglePassword()"
+                      id="password-toggle"
+                  >
+                      👁
+                  </button>
+              </div>
+          </div>
+
+          <div class="forgot-password">
+              <a href="#" onclick="showForgotPassword()">He olvidado mi contraseña</a>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submit-btn" disabled>
+              Iniciar sesión
+          </button>
+
+          <div class="register-link">
+              ¿Todavía no perteneces a Top Doctors? 
+              <a href="#" onclick="showRegister()">Quiero registrarme</a>
+          </div>
+      </form>
   </div>
+</div>
+</main>
 
   <div class="container">
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <nav class="sidebar">
       <div class="nav-container">
         <a href="index.html" class="nav-item">Inicio</a>
-        <a href="pedircita.html" class="nav-item">Pedir una cita</a>
-        <a href="Tratamientos.html" class="nav-item">Tratamientos</a>
-        <a href="clinicas.html" class="nav-item">Clínicas</a>
-        <a href="Blog.html" class="nav-item">Blog</a>
+        <a href="./Pages/pedircita.html" class="nav-item">Pedir una cita</a>
+        <a href="./Pages/Tratamientos.html" class="nav-item">Tratamientos</a>
+        <a href="./Pages/clinicas.html" class="nav-item">Clínicas</a>
+        <a href="./Pages/Blog.html" class="nav-item">Blog</a>
       </div>
     </nav>
   </div>
-  <script src="app.js"></script>
+  <script src="../app.js"></script>
 </body>
 </html>
 
