@@ -1,0 +1,137 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom right, #007BFF, #0056b3);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+   
+}
+
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 380px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+
+
+.form-container h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+
+}
+
+.form-container .subtitle {
+    font-size: 14px;
+
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 14px;
+
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-container input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background: #b3d9ff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.form-container .link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.form-container .link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    .form-container h2 {
+        font-size: 20px;
+    }
+
+    .form-container button {
+        font-size: 14px;
+    }
+}

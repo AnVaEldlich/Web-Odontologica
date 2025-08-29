@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/register.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Registro</title>
+</head>
+<body>
+       <!-- <div class="Logo" id="Logo">
+            <h1>Odontología Integral</h1>
+        </div> -->
+
+            <div class="form-container" id="form-container">
+                    <header>
+                        <h2>Registro 
+                        <br>
+                        <br class="md:hidden">
+                        <span class="text-blue-600">para Pacientes</span>
+                        </h2>
+                        <br>
+                    </header>
+                    <form action="/submit" method="POST">
+
+                    <div class="input-row" id="username">
+
+                    <input
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    required 
+                    minlength="3" 
+                    maxlength="20" 
+                    placeholder="Nombres"
+                    >
+
+                    <input 
+                    type="text" 
+                    id="Apellidos" 
+                    name="Apellidos" 
+                    required 
+                    minlength="3" 
+                    maxlength="20" 
+                    placeholder="Apellidos"
+                    >
+
+                    </div>
+
+                    <div class="input-row" id="ID">
+
+                        <select 
+                        id="tipoID"
+                        name="tipoID"
+                        required
+                        placeholder="Tipo de Identificación"
+                        >
+                        <option value="">Tipo de Identificación</option>
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="CE">Cédula de Extranjería</option>
+                        <option value="TI">Tarjeta de Identidad</option>
+                        </select>
+                        
+                            
+                        <input 
+                        type="text"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                        id="numeroID"
+                        name="numeroID"
+                        required
+                        minlength="6"
+                        maxlength="10"
+                        placeholder="Número de Identificación"
+                        >
+
+                    </div>
+                    <br>
+                <label for="fechaNacimiento">Fecha de Nacimiento: </label>
+                <div class="input-row" id="fechaNacimiento">
+            
+                    <select id="fechaNacimiento" name="mes" required>
+                        <option value="" id="mes">Octubre</option>
+                        <option value="" id="mes">Noviembre</option>
+                        <option value="" id="mes">Diciembre</option>
+                        <option value="" id="mes">Enero</option>
+                        <option value="" id="mes">Febrero</option>
+                        <option value="" id="mes">Marzo</option>
+                        <option value="" id="mes">Abril</option>
+                        <option value="" id="mes">Mayo</option>
+                        <option value="" id="mes">Junio</option>
+                        <option value="" id="mes">Julio</option>
+                        <option value="" id="mes">Agosto</option>
+                        <option value="" id="mes">Septiembre</option>
+                    </select>
+                        <select id="fechaNacimiento" name="dia" required>
+                        <option value="" id="dia"> 1</option> 
+                        <option value="" id="dia"> 2</option> 
+                        <option value="" id="dia"> 3</option> 
+                        <option value="" id="dia"> 4</option> 
+                        <option value="" id="dia"> 5</option> 
+                        <option value="" id="dia"> 6</option> 
+                        <option value="" id="dia"> 7</option> 
+                        <option value="" id="dia"> 8</option> 
+                        <option value="" id="dia"> 9</option> 
+                        <option value="" id="dia"> 10</option> 
+                        <option value="" id="dia"> 11</option> 
+                        <option value="" id="dia"> 12</option> 
+                        <option value="" id="dia"> 13</option> 
+                        <option value="" id="dia"> 14</option> 
+                        <option value="" id="dia"> 15</option> 
+                        <option value="" id="dia"> 16</option> 
+                        <option value="" id="dia"> 17</option> 
+                        <option value="" id="dia"> 18</option> 
+                        <option value="" id="dia"> 19</option> 
+                        <option value="" id="dia"> 20</option> 
+                        <option value="" id="dia"> 21</option> 
+                        <option value="" id="dia"> 22</option> 
+                        <option value="" id="dia"> 23</option> 
+                        <option value="" id="dia"> 24</option> 
+                        <option value="" id="dia"> 25</option> 
+                        <option value="" id="dia"> 26</option> 
+                        <option value="" id="dia"> 27</option> 
+                        <option value="" id="dia"> 28</option> 
+                        <option value="" id="dia"> 29</option> 
+                        <option value="" id="dia"> 30</option> 
+                        <option value="" id="dia"> 31</option> 
+                    </select>
+                        <select id="fechaNacimiento" name="años" required>
+                        <option value="" id="años">2025 </option>
+                        <option value="" id="años">2024 </option>
+                        <option value="" id="años">2023 </option>
+                        <option value="" id="años">2022 </option>
+                        <option value="" id="años">2021 </option>
+                        <option value="" id="años">2020 </option>
+                        <option value="" id="años">2019 </option>
+                        <option value="" id="años">2018 </option>
+                        <option value="" id="años">2017 </option>
+                        <option value="" id="años">2016 </option>
+                        <option value="" id="años">2015 </option>
+                        <option value="" id="años">2014 </option>
+                        <option value="" id="años">2013 </option>
+                        <option value="" id="años">2012 </option>
+                        <option value="" id="años">2011 </option>
+                        <option value="" id="años">2010 </option>
+                        <option value="" id="años">2009 </option>
+                        <option value="" id="años">2008 </option>
+                        <option value="" id="años">2007 </option>
+                        <option value="" id="años">2006 </option>
+                        <option value="" id="años">2005 </option>
+                        <option value="" id="años">2004 </option>
+                        <option value="" id="años">2003 </option>
+                        <option value="" id="años">2002 </option>
+                        <option value="" id="años">2001 </option>
+                        <option value="" id="años">2000 </option>
+                        <option value="" id="años">1999 </option>
+                        <option value="" id="años">1998 </option>
+                        <option value="" id="años">1997 </option>
+                        <option value="" id="años">1996 </option>
+                        <option value="" id="años">1995 </option>
+                        <option value="" id="años">1994 </option>
+                        <option value="" id="años">1993 </option>
+                        <option value="" id="años">1992 </option>
+                        <option value="" id="años">1991 </option>
+                        <option value="" id="años">1990 </option>
+                        <option value="" id="años">1989 </option>
+                        <option value="" id="años">1988 </option>
+                        <option value="" id="años">1987 </option>
+                        <option value="" id="años">1986 </option>
+                        <option value="" id="años">1985 </option>
+                        <option value="" id="años">1984 </option>
+                        <option value="" id="años">1983 </option>
+                        <option value="" id="años">1982 </option>
+                        <option value="" id="años">1981 </option>
+                        <option value="" id="años">1980 </option>
+                        <option value="" id="años">1979 </option>
+                        <option value="" id="años">1978 </option>
+                        <option value="" id="años">1977 </option>
+                        <option value="" id="años">1976 </option>
+                        <option value="" id="años">1975 </option>
+                        <option value="" id="años">1974 </option>
+                        <option value="" id="años">1973 </option>
+                        <option value="" id="años">1972 </option>
+                        <option value="" id="años">1971 </option>
+                        <option value="" id="años">1970 </option>
+                        
+                    </select>
+
+                    </div>
+                    <br>
+                    <label>Genero:</label>
+                    <div class="input-row" id="genero">
+                        <label><input type="radio" name="genero" value="Masculino">Masculino</label>
+                        <label><input type="radio" name="genero" value="Femenino">Femenino</label>
+                    </div>
+                    <br>
+                        <input
+                        type="text"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                        id="edad"
+                        name="edad"
+                        required
+                        minlength="2"
+                        maxlength="2"
+                        placeholder="Edad"
+                        >
+
+                        <input
+                        type="text"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                        id="telefono"
+                        name="telefono"
+                        required
+                        minlength="10"
+                        maxlength="10"
+                        placeholder="Telefono"
+                        >     
+                
+                        <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required
+                        placeholder="Correo Electrónico"
+                        >
+                        
+                        <input  
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required
+                        placeholder="Contraseña"
+                        >
+                        
+                        <input 
+                        type="password" 
+                        id="confirm-password" 
+                        name="confirm-password" 
+                        required
+                        placeholder="Confirmar Contraseña"
+                        >
+                        
+                    <button type="submit" disabled>Registrarse</button>
+                </form>
+                <br>
+                <p style="text-align: center;"> ¿Ya tienes una cuenta? <a style="color: blue;" href="../index.html">Iniciar Sesión</a></p>
+            </div>
+      
+    <script src="../js/app.js"></script>
+</body>
+</html>
+    

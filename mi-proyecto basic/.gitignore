@@ -1,0 +1,10 @@
+.env
+
+# Ignora dependencias de Node.js
+node_modules/
+
+# Ignora archivos de configuración local
+.env
+
+# Ignora logs
+*.log
