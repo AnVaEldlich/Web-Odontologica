@@ -1061,17 +1061,6 @@ body.home .form-container {
 }
 
 
-.tarjeta {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  text-align: left;
-  flex-wrap: wrap;
-  width: 400px;
-  height: 400px;
-  cursor: pointer;
-}
 
 #ximg {
 
@@ -1081,10 +1070,6 @@ body.home .form-container {
   display: block;
   
   
-}
-.tarjeta:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 

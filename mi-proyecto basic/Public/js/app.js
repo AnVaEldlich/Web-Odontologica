@@ -42,9 +42,9 @@ let currentTab = 'patient';
             container.style.display = 'block';
 
             if (tabType === 'patient') {
-                link.href = './Pages/register.html';
+                link.href = '/Pages/register.html';
             } else if (tabType === 'doctor') {
-                link.href = './Pages/registerdoctor.html';
+                link.href = '/Pages/registerdoctor.html';
             }
         }
 

@@ -11,19 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const isCollapsed = sidebar.classList.contains('collapsed');
     }
     
-    // Check for saved preference
-  
     
-    // Toggle sidebar on button click
-    
-   /* if (toggleBtn) {
-        toggleBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleSidebar();
-        });
-    }*/
-    
-    
+ 
+
     // Add active class to current page link
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.sidebar-nav a');
