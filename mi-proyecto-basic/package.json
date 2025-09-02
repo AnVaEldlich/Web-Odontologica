@@ -1,0 +1,46 @@
+{
+  "name": "web---odontologia",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnVaEldlich/Web-Odontologica.git"
+  },
+  "keywords": [
+    "odontologia",
+    "web",
+    "clinica",
+    "odontologica"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnVaEldlich/Web-Odontologica/issues"
+  },
+  "homepage": "https://github.com/AnVaEldlich/Web-Odontologica#readme",
+  "description": "Sitio web para clínica odontológica con sistema de citas y información de tratamientos",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.18.0",
+    "morgan": "^1.10.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.14.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.12"
+  }
+}
