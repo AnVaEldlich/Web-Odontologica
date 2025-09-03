@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Odontología Integral</title>
+  <title>Odontología Integral - Iniciar Sesión</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" type="image/png" href="../img/Teeth.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -17,12 +17,9 @@
   <div class="sidebar" id="sidebar">
     <div class="logo-container">
       <h2 class="logo"><i class="fas fa-tooth"></i> <span>Odontología</span></h2>
-      <!-- <button class="toggle-btn" id="toggleSidebar">
-        <i class="fas fa-bars"></i>
-      </button> -->
     </div>
     <nav class="sidebar-nav">
-      <a href="TheHome.html" class="active">
+      <a href="TheHome.html">
         <i class="fas fa-home"></i>
         <span>Inicio</span>
       </a>
@@ -48,77 +45,109 @@
   <!-- Main Content -->
   <main class="main-content" id="mainContent">
    <div class="form-container">
-    <!-- formulario pestañas -->
+    <!-- Formulario pestañas -->
     <div class="form-tabs">
-        <button class="tab-button" data-tab="patient">
-          <div class="tab-icon"></div>
-          Soy Paciente
+        <button type="button" class="tab-button active" data-tab="patient">
+          <div class="tab-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <span>Soy Paciente</span>
         </button>
-        <button class="tab-button" data-tab="doctor">
-          <div class="tab-icon"></div>
-          Soy Odontólogo
-      </button>
-      </div>
-      <!-- formulario de login -->
-       <div class="form-content">
-         <h2 class="form-title">Acceder a la cuenta</h2>
-         <form id="loginForm">
+        <button type="button" class="tab-button" data-tab="doctor">
+          <div class="tab-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <span>Soy Odontólogo</span>
+        </button>
+    </div>
+
+    <!-- Formulario de login -->
+    <div class="form-content">
+         <h2 class="form-title">Acceder a Mi Cuenta</h2>
+         
+         <form id="loginForm" novalidate>
           <div class="form-group">
               <div class="input-with-icon">
-                  <span class="input-icon">✉</span>
+                  <span class="input-icon">
+                    
+                  </span>
                   <input 
                       type="email" 
                       id="email" 
+                      name="email"
                       class="form-input" 
                       placeholder="Correo electrónico"
+                      autocomplete="email"
                       required
+                      aria-describedby="email-error"
                   >
               </div>
-              <div class="error-message" id="email-error">
-                  El campo Correo electrónico es obligatorio
+              <div class="error-message" id="email-error" role="alert">
+                  Por favor, introduce un email válido
               </div>
           </div>
 
           <div class="form-group">
               <div class="input-with-icon">
-                  <span class="input-icon">🔒</span>
+                  <span class="input-icon">
+                    
+                  </span>
                   <input 
                       type="password" 
                       id="password" 
+                      name="password"
                       class="form-input" 
                       placeholder="Contraseña"
+                      autocomplete="current-password"
+                      minlength="6"
                       required
+                      aria-describedby="password-help"
                   >
                   <button 
                       type="button" 
                       class="password-toggle" 
-                      onclick="togglePassword()"
                       id="password-toggle"
+                      aria-label="Mostrar contraseña"
+                      tabindex="0"
                   >
-                      👁
+                    
                   </button>
+              </div>
+              <div class="password-help" id="password-help">
+                  Mínimo 6 caracteres
               </div>
           </div>
 
           <div class="forgot-password">
-              <a href="./Pages/forgotpassword.html" onclick="showForgotPassword()">He olvidado mi contraseña</a>
+              <a href="forgotpassword.html">He olvidado mi contraseña</a>
           </div>
 
           <button type="submit" class="submit-btn" id="submit-btn" disabled>
-              Iniciar sesión
+              <span class="btn-text">Iniciar sesión</span>
+              <span class="btn-loading" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i> Iniciando sesión...
+              </span>
           </button>
 
           <div class="register" id="register">
-              ¿Todavía no tienes una cuenta? 
-              <a id="register-link">Quiero registrarme</a>
+              <p>¿Todavía no tienes una cuenta?
+              <a href="register.html" id="register-link">Quiero registrarme</a></p>
           </div>
       </form>
   </div>
 </div>
-</main>
 
-  <script src="../js/main.js"></script>
-  <script src="../js/menu.js"></script>
+<!-- Loading overlay (opcional) -->
+<div class="loading-overlay" id="loading-overlay" style="display: none;">
+  <div class="loading-spinner">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Iniciando sesión...</p>
+  </div>
+</div>
+
+</main>
+<script src="../js/main.js"></script>
+<script src="../js/menu.js"></script>
+<script src="../js/TheHome.js"></script>
 </body>
 </html>
-

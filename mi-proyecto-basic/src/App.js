@@ -45,6 +45,42 @@ app.post('/submit', async (req, res) => {
   }
 });
 
+
+// Login de usuario
+app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const [rows] = await db.query(
+      'SELECT * FROM users WHERE email = ? AND password = ?',
+      [email, password]
+    );
+
+    if (rows.length > 0) {
+      // Usuario encontrado
+      const user = rows[0];
+      res.json({
+        success: true,
+        user: {
+          id: user.id,
+          username: user.username,
+          apellidos: user.apellidos,
+          email: user.email,
+          telefono: user.telefono,
+          genero: user.genero,
+          edad: user.edad
+        }
+      });
+    } else {
+      res.json({ success: false, message: 'Credenciales inválidas' });
+    }
+  } catch (err) {
+    console.error('Error en login:', err);
+    res.status(500).json({ error: 'Error interno en el servidor' });
+  }
+});
+
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
