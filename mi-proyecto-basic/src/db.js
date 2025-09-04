@@ -1,5 +1,7 @@
 // db.js
 // db.js
+
+
 const mysql = require('mysql2/promise');
 
 // Crear un pool de conexiones
@@ -35,8 +37,6 @@ module.exports = pool;
 //             ['Pedro Gómez', 'pedro.gomez@example.com', 30, '2024-05-15']
 //         );
 //         console.log('Registro insertado con ID:', insertResult.insertId);
-
-
 //         // Opción 2: Leer todos los registros de la tabla
 //         const [rows] = await (await connection).execute('SELECT * FROM usuarios');
 

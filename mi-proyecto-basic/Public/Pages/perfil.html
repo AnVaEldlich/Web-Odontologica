@@ -12,6 +12,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const user = JSON.parse(localStorage.getItem("user"));
+      
       if (!user) {
         // Si no hay usuario logueado, redirigir
         window.location.href = "TheHome.html";
@@ -27,4 +28,6 @@
     });
   </script>
 </body>
-</html>
+</html> 
+
+
