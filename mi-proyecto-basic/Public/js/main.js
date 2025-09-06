@@ -1,4 +1,4 @@
-// main.js - Script principal para la funcionalidad de la aplicación
+// main.js - Script principal integrado con backend
 
 // Variables globales
 let currentTab = 'patient';
@@ -28,26 +28,11 @@ function initTabs() {
 
 // Configurar todos los event listeners
 function setupEventListeners() {
-    // Validación en tiempo real del formulario
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
+    // Event listeners para formulario de pacientes
+    setupFormListeners('patient');
     
-    if (emailInput && passwordInput) {
-        emailInput.addEventListener('input', validateForm);
-        passwordInput.addEventListener('input', validateForm);
-    }
-    
-    // Botón de toggle de contraseña
-    const toggleBtn = document.getElementById('password-toggle');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', togglePassword);
-    }
-    
-    // Envío del formulario
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleSubmit);
-    }
+    // Event listeners para formulario de doctores
+    setupFormListeners('doctor');
     
     // Botones de cambio de pestaña
     const tabButtons = document.querySelectorAll('.tab-button');
@@ -56,10 +41,44 @@ function setupEventListeners() {
             const tabType = this.getAttribute('data-tab');
             if (tabType) {
                 switchTab(tabType);
-                changeLink(tabType);
             }
         });
     });
+}
+
+// Configurar event listeners específicos para cada formulario
+function setupFormListeners(userType) {
+    const prefix = userType; // 'patient' o 'doctor'
+    
+    // Inputs de validación
+    const emailInput = document.getElementById(`${prefix}-email`);
+    const passwordInput = document.getElementById(`${prefix}-password`);
+    const identificationInput = document.getElementById(`${prefix}-identificacion`); // Para doctores
+    
+    if (emailInput) {
+        emailInput.addEventListener('input', () => validateForm(userType));
+        
+        // Para pacientes validamos contraseña, para doctores identificación
+        if (userType === 'patient' && passwordInput) {
+            passwordInput.addEventListener('input', () => validateForm(userType));
+        } else if (userType === 'doctor' && identificationInput) {
+            identificationInput.addEventListener('input', () => validateForm(userType));
+        }
+    }
+    
+    // Botón de toggle de contraseña (solo para pacientes)
+    if (userType === 'patient') {
+        const toggleBtn = document.getElementById(`${prefix}-password-toggle`);
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => togglePassword(userType));
+        }
+    }
+    
+    // Envío del formulario
+    const loginForm = document.getElementById(`${prefix}-login-form`);
+    if (loginForm) {
+        loginForm.addEventListener('submit', (event) => handleSubmit(event, userType));
+    }
 }
 
 // Configurar navegación del logo
@@ -91,7 +110,7 @@ function setupSidebarNavigation() {
     });
 }
 
-// Función para cambiar de pestaña
+// Función para cambiar de pestaña y mostrar el formulario correspondiente
 function switchTab(tabType) {
     // Validar tipo de pestaña
     if (!['patient', 'doctor'].includes(tabType)) {
@@ -110,11 +129,15 @@ function switchTab(tabType) {
         activeTab.classList.add('active');
         currentTab = tabType;
         
-        // Actualizar UI según el tipo de usuario
-        updateUIForUserType(tabType);
+        // Mostrar el formulario correspondiente
+        showForm(tabType);
         
-        // Resetear formulario
-        resetForm();
+        // Actualizar clase del contenedor
+        updateContainerClass(tabType);
+        
+        // Resetear ambos formularios
+        resetForm('patient');
+        resetForm('doctor');
         
         console.log(`Pestaña cambiada a: ${tabType}`);
     } else {
@@ -122,53 +145,48 @@ function switchTab(tabType) {
     }
 }
 
-// Función para actualizar la UI según el tipo de usuario
-function updateUIForUserType(tabType) {
-    // Actualizar título
-    const title = document.querySelector('.form-title');
-    if (title) {
-        title.textContent = tabType === 'patient' ? 'Acceder a Mi Cuenta' : 'Acceso Profesional';
-    }
+// Función para mostrar el formulario correspondiente
+function showForm(tabType) {
+    const patientWrapper = document.getElementById('patient-form-wrapper');
+    const doctorWrapper = document.getElementById('doctor-form-wrapper');
     
-    // Actualizar placeholder del email
-    const emailInput = document.getElementById('email');
-    if (emailInput) {
-        emailInput.placeholder = tabType === 'doctor' ? 'Email profesional' : 'Correo electrónico';
-    }
-}
-
-// Función para cambiar el enlace de registro según el tipo de usuario
-function changeLink(tabType) {
-    const link = document.getElementById('register-link');
-    const container = document.getElementById('register');
-    
-    if (container) {
-        container.style.display = 'block';
-    }
-    
-    if (link) {
-        const href = tabType === 'patient' ? 'register.html' : 'registerdoctor.html';
-        link.href = href;
-        console.log(`Enlace de registro cambiado a: ${href}`);
+    if (tabType === 'patient') {
+        patientWrapper.classList.remove('hidden');
+        patientWrapper.classList.add('active');
+        doctorWrapper.classList.remove('active');
+        doctorWrapper.classList.add('hidden');
+    } else {
+        doctorWrapper.classList.remove('hidden');
+        doctorWrapper.classList.add('active');
+        patientWrapper.classList.remove('active');
+        patientWrapper.classList.add('hidden');
     }
 }
 
-// Función para validar el formulario
-function validateForm() {
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const submitBtn = document.getElementById('submit-btn');
-    const emailError = document.getElementById('email-error');
+// Función para actualizar la clase del contenedor
+function updateContainerClass(tabType) {
+    const formContainer = document.querySelector('.form-container');
+    if (formContainer) {
+        formContainer.classList.remove('patient-mode', 'doctor-mode');
+        formContainer.classList.add(`${tabType}-mode`);
+    }
+}
+
+// Función para validar formulario específico
+function validateForm(userType) {
+    const prefix = userType;
+    const emailInput = document.getElementById(`${prefix}-email`);
+    const submitBtn = document.getElementById(`${prefix}-submit-btn`);
+    const emailError = document.getElementById(`${prefix}-email-error`);
     
-    if (!emailInput || !passwordInput || !submitBtn) {
-        console.warn('Elementos del formulario no encontrados');
+    if (!emailInput || !submitBtn) {
+        console.warn(`Elementos del formulario ${userType} no encontrados`);
         return;
     }
     
     const email = emailInput.value.trim();
-    const password = passwordInput.value;
     
-    // Validar email
+    // Validación de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isEmailValid = email && emailRegex.test(email);
     
@@ -181,11 +199,26 @@ function validateForm() {
         if (emailError) emailError.classList.remove('show');
     }
     
-    // Validar contraseña (mínimo 6 caracteres)
-    const isPasswordValid = password.length >= 6;
+    let isSecondFieldValid = false;
+    
+    if (userType === 'patient') {
+        // Para pacientes: validar contraseña
+        const passwordInput = document.getElementById(`${prefix}-password`);
+        if (passwordInput) {
+            const password = passwordInput.value;
+            isSecondFieldValid = password.length >= 6;
+        }
+    } else {
+        // Para doctores: validar identificación
+        const identificationInput = document.getElementById(`${prefix}-identificacion`);
+        if (identificationInput) {
+            const identification = identificationInput.value.trim();
+            isSecondFieldValid = identification.length >= 6; // Mínimo 6 caracteres para ID
+        }
+    }
     
     // Habilitar/deshabilitar botón de envío
-    const isFormValid = isEmailValid && isPasswordValid;
+    const isFormValid = isEmailValid && isSecondFieldValid;
     submitBtn.disabled = !isFormValid;
     
     // Cambiar estilo del botón según validez
@@ -196,106 +229,190 @@ function validateForm() {
     }
 }
 
-// Función para mostrar/ocultar la contraseña
-function togglePassword() {
-    const passwordInput = document.getElementById('password');
-    const toggleButton = document.getElementById('password-toggle');
+// Función para mostrar/ocultar la contraseña (solo para pacientes)
+function togglePassword(userType) {
+    if (userType !== 'patient') return;
+    
+    const passwordInput = document.getElementById(`${userType}-password`);
+    const toggleButton = document.getElementById(`${userType}-password-toggle`);
     
     if (!passwordInput || !toggleButton) {
-        console.warn('Elementos de toggle de contraseña no encontrados');
+        console.warn(`Elementos de toggle de contraseña ${userType} no encontrados`);
         return;
     }
     
     const isPassword = passwordInput.type === 'password';
     passwordInput.type = isPassword ? 'text' : 'password';
-    toggleButton.textContent = isPassword ? '🙈' : '👁';
-    toggleButton.setAttribute('aria-label', isPassword ? 'Ocultar contraseña' : 'Mostrar contraseña');
+    
+    // Actualizar icono del botón
+    const icon = toggleButton.querySelector('i');
+    if (icon) {
+        if (isPassword) {
+            icon.className = 'fas fa-eye-slash';
+            toggleButton.setAttribute('aria-label', 'Ocultar contraseña');
+        } else {
+            icon.className = 'fas fa-eye';
+            toggleButton.setAttribute('aria-label', 'Mostrar contraseña');
+        }
+    }
 }
 
-// Función para resetear el formulario
-function resetForm() {
-    const form = document.getElementById('loginForm');
-    const submitBtn = document.getElementById('submit-btn');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const emailError = document.getElementById('email-error');
+// Función para resetear formulario específico
+function resetForm(userType) {
+    const prefix = userType;
+    const form = document.getElementById(`${prefix}-login-form`);
+    const submitBtn = document.getElementById(`${prefix}-submit-btn`);
+    const emailInput = document.getElementById(`${prefix}-email`);
+    const emailError = document.getElementById(`${prefix}-email-error`);
     
     if (form) form.reset();
+    
     if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.classList.remove('valid');
-        submitBtn.textContent = 'Iniciar sesión';
     }
+    
     if (emailInput) emailInput.classList.remove('error');
-    if (passwordInput && passwordInput.type === 'text') {
-        passwordInput.type = 'password';
-        const toggleButton = document.getElementById('password-toggle');
-        if (toggleButton) toggleButton.textContent = '👁';
+    
+    if (userType === 'patient') {
+        const passwordInput = document.getElementById(`${prefix}-password`);
+        if (passwordInput && passwordInput.type === 'text') {
+            passwordInput.type = 'password';
+            const toggleButton = document.getElementById(`${prefix}-password-toggle`);
+            if (toggleButton) {
+                const icon = toggleButton.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-eye';
+                    toggleButton.setAttribute('aria-label', 'Mostrar contraseña');
+                }
+            }
+        }
     }
+    
     if (emailError) emailError.classList.remove('show');
     
-    console.log('Formulario reseteado');
+    console.log(`Formulario ${userType} reseteado`);
 }
 
-// Función para manejar el envío del formulario
-async function handleSubmit(event) {
+// Función REAL para manejar el envío del formulario con backend
+async function handleSubmit(event, userType) {
     event.preventDefault();
     
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const submitBtn = document.getElementById('submit-btn');
+    const prefix = userType;
+    const emailInput = document.getElementById(`${prefix}-email`);
+    const submitBtn = document.getElementById(`${prefix}-submit-btn`);
     
-    if (!emailInput || !passwordInput || !submitBtn) {
-        console.error('Elementos del formulario no encontrados');
+    if (!emailInput || !submitBtn) {
+        console.error(`Elementos del formulario ${userType} no encontrados`);
         return;
     }
     
     const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    const userType = currentTab;
     
     // Validación final antes del envío
-    if (!email || !password) {
-        showMessage('Por favor, completa todos los campos', 'error');
+    if (!email) {
+        showMessage('Por favor, introduce tu email', 'error');
         return;
     }
     
     // Mostrar estado de carga
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Iniciando sesión...';
+    const loadingText = userType === 'patient' ? 
+        'Iniciando sesión...' : 
+        'Verificando credenciales...';
+    
+    submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
     submitBtn.disabled = true;
     
     try {
-        console.log(`Intento de inicio de sesión - Tipo: ${userType}, Email: ${email}`);
-        
-        // Simular proceso de login (reemplazar con llamada real al servidor)
-        await simulateLogin(email, password, userType);
-        
-        // Aquí podrías redirigir al usuario
-        // window.location.href = userType === 'patient' ? 'patient-dashboard.html' : 'doctor-dashboard.html';
+        if (userType === 'patient') {
+            await handlePatientLogin(email, prefix);
+        } else {
+            await handleDoctorLogin(email, prefix);
+        }
         
     } catch (error) {
         console.error('Error en el login:', error);
-        showMessage('Error al iniciar sesión. Verifica tus credenciales.', 'error');
+        showMessage(error.message || 'Error de conexión con el servidor', 'error');
     } finally {
         // Restaurar botón
-        submitBtn.textContent = originalText;
-        validateForm(); // Esto habilitará el botón si el formulario es válido
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            validateForm(userType);
+        }, 1000);
     }
 }
 
-// Función para simular el proceso de login
-function simulateLogin(email, password, userType) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            // Simular validación simple
-            if (email.includes('@') && password.length >= 6) {
-                resolve({ success: true, userType, email });
-            } else {
-                reject(new Error('Credenciales inválidas'));
-            }
-        }, 1500);
+// Función para manejar login de pacientes
+async function handlePatientLogin(email, prefix) {
+    const passwordInput = document.getElementById(`${prefix}-password`);
+    if (!passwordInput) {
+        throw new Error('Campo de contraseña no encontrado');
+    }
+    
+    const password = passwordInput.value;
+    
+    if (!password || password.length < 6) {
+        throw new Error('La contraseña debe tener al menos 6 caracteres');
+    }
+    
+    const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
     });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+        // Guardamos datos en localStorage
+        localStorage.setItem("user", JSON.stringify(data.user));
+        
+        showMessage('Inicio de sesión exitoso. Redirigiendo...', 'success');
+        
+        // Redirigimos al perfil después de 1.5 segundos
+        setTimeout(() => {
+            window.location.href = "perfil.html";
+        }, 1500);
+    } else {
+        throw new Error(data.message || "Error al iniciar sesión");
+    }
+}
+
+// Función para manejar login de doctores
+async function handleDoctorLogin(email, prefix) {
+    const identificationInput = document.getElementById(`${prefix}-identificacion`);
+    if (!identificationInput) {
+        throw new Error('Campo de identificación no encontrado');
+    }
+    
+    const identificacion = identificationInput.value.trim();
+    
+    if (!identificacion || identificacion.length < 6) {
+        throw new Error('La identificación debe tener al menos 6 caracteres');
+    }
+    
+    const response = await fetch("http://localhost:3000/login-dentist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, identificacion })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+        // Guardamos los datos del odontólogo
+        localStorage.setItem("doctor", JSON.stringify(data.doctor));
+        
+        showMessage('Acceso profesional autorizado. Redirigiendo...', 'success');
+        
+        // Redirigimos a la página de perfil del odontólogo después de 1.5 segundos
+        setTimeout(() => {
+            window.location.href = "perfildoctor.html";
+        }, 1500);
+    } else {
+        throw new Error(data.message || "Error al iniciar sesión");
+    }
 }
 
 // Función para mostrar mensajes al usuario
@@ -321,13 +438,14 @@ function showMessage(message, type = 'info') {
     messageEl.style.cssText = `
         padding: 12px 16px;
         margin-bottom: 10px;
-        border-radius: 4px;
+        border-radius: 8px;
         color: white;
         font-weight: 500;
         opacity: 0;
         transform: translateX(100%);
         transition: all 0.3s ease;
         background-color: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     `;
     messageEl.textContent = message;
     
@@ -339,7 +457,7 @@ function showMessage(message, type = 'info') {
         messageEl.style.transform = 'translateX(0)';
     }, 10);
     
-    // Remover después de 3 segundos
+    // Remover después de 4 segundos
     setTimeout(() => {
         messageEl.style.opacity = '0';
         messageEl.style.transform = 'translateX(100%)';
@@ -348,10 +466,9 @@ function showMessage(message, type = 'info') {
                 messageEl.parentNode.removeChild(messageEl);
             }
         }, 300);
-    }, 3000);
+    }, 4000);
 }
 
 // Hacer funciones disponibles globalmente si se necesitan desde el HTML
 window.switchTab = switchTab;
-window.changeLink = changeLink;
 window.togglePassword = togglePassword;

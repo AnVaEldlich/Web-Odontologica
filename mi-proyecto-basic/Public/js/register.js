@@ -19,6 +19,7 @@ for (let i = currentYear; i >= 1920; i--) {
     option.textContent = i;
     yearSelect.appendChild(option);
 }
+
 }
 
 // Seleccionar género
@@ -225,25 +226,3 @@ document.getElementById('registrationForm').addEventListener('submit', async (e)
 }); 
 });
  
-
- document.getElementById('registrationForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-  
-    // Tomar los datos del formulario
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-  
-    try {
-      const response = await fetch('/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-  
-      const result = await response.json();
-      alert(result.message);
-    } catch (err) {
-      console.error('Error enviando datos:', err);
-      alert('Hubo un error al registrar');
-    }
-  });

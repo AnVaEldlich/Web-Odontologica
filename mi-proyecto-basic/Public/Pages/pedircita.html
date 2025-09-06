@@ -219,23 +219,7 @@
       </form>
     </div>
   </main>
-
-  <script src="../menu.js"></script>
-  <script src="../main.js"></script>
-  <script>
-    // Establecer la fecha mínima como hoy
-    document.addEventListener('DOMContentLoaded', function() {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('fecha').min = today;
-      
-      // Inicializar el datepicker con opciones
-      flatpickr("input[type=date]", {
-        locale: "es",
-        dateFormat: "Y-m-d",
-        minDate: "today"
-      });
-    });
-  </script>
+  <script src="../js/pedircita.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/menu.js"></script>
 </body>
