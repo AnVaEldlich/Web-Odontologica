@@ -24,64 +24,184 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
+
 // Obtener datos de pedir citas
 app.get('/api/appointments', async (req, res) => {
   try {
-    const [rows] = await db.query('SELECT * FROM Solicitudes_de_citas');
-    res.json(rows);
+    const [rows] = await db.query('SELECT * FROM solicitud_citas ORDER BY fecha_registro DESC');
+    res.json({
+      success: true,
+      data: rows
+    });
   } catch (err) {
     console.error('Error fetching appointments:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ 
+      success: false, 
+      error: 'Error interno del servidor' 
+    });
   }
 });
 
-
-// insertar citas
+// Insertar citas - CORREGIDO
 app.post('/api/appointments', async (req, res) => {
   try {
     const {
-      nombre_completo,
+      nombre,
       email,
       telefono,
       fecha_nacimiento,
-      tratamiento_solicitado,
+      tratamiento,
+      doctor,
       fecha_cita,
       hora_cita,
-      motivo_consulta,
-      estado = 'pendiente',
-      notas_adicionales
+      comentarios,
+      tipo_visita  // CORREGIDO: nombre del campo
     } = req.body;
     
+    // Validación de campos obligatorios
+    if (!nombre || !email || !telefono || !fecha_cita || !hora_cita || !tratamiento) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Los campos nombre, email, teléfono, fecha de cita, hora de cita y tratamiento son obligatorios' 
+      });
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'El formato del email no es válido' 
+      });
+    }
+
+    // Validar que la fecha de la cita no sea en el pasado
+    const fechaCita = new Date(fecha_cita);
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    
+    if (fechaCita < hoy) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'La fecha de la cita no puede ser anterior a hoy' 
+      });
+    }
+
+    // Determinar si es emergencia o primera visita
+    const esEmergencia = tipo_visita === 'emergencia' ? 1 : 0;
+    const esPrimeraVisita = tipo_visita === 'primera_visita' ? 1 : 0;
+    
     const sql = `
-      INSERT INTO Solicitudes_de_citas (
-        nombre_completo, email, telefono, fecha_nacimiento,
-        tratamiento_solicitado, fecha_cita, hora_cita, motivo_consulta, estado, notas_adicionales
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO solicitud_citas (
+        nombre, email, telefono, fecha_nacimiento,
+        tratamiento, doctor, fecha_cita, hora_cita, 
+        comentarios, emergencia, primer_visita
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
     const values = [
-      nombre_completo,
-      email,
-      telefono,
-      fecha_nacimiento,
-      tratamiento_solicitado,
+      nombre.trim(),
+      email.toLowerCase().trim(),
+      telefono.trim(),
+      fecha_nacimiento || null,
+      tratamiento,
+      doctor || null,
       fecha_cita,
       hora_cita,
-      motivo_consulta,
-      estado,
-      notas_adicionales
+      comentarios || null,
+      esEmergencia,
+      esPrimeraVisita
     ];
     
     const [result] = await db.query(sql, values);
     
-    res.json({ message: 'Cita solicitada con éxito', id: result.insertId });
+    res.json({ 
+      success: true, 
+      message: 'Cita solicitada con éxito', 
+      data: {
+        id: result.insertId,
+        nombre: nombre,
+        fecha_cita: fecha_cita,
+        hora_cita: hora_cita
+      }
+    });
+    
   } catch (error) {
-    console.error('Error inserting appointment:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error al insertar cita:', error);
+    
+    // Manejo de errores específicos de MySQL
+    if (error.code === 'ER_DUP_ENTRY') {
+      return res.status(409).json({ 
+        success: false, 
+        message: 'Ya existe una cita con estos datos' 
+      });
+    }
+    
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error interno del servidor al procesar la cita' 
+    });
   }
 });
 
+// NUEVO: Endpoint para verificar disponibilidad de citas
+app.get('/api/appointments/availability/:fecha/:hora', async (req, res) => {
+  try {
+    const { fecha, hora } = req.params;
+    
+    const [rows] = await db.query(
+      'SELECT COUNT(*) as count FROM solicitud_citas WHERE fecha_cita = ? AND hora_cita = ?',
+      [fecha, hora]
+    );
+    
+    const isAvailable = rows[0].count === 0;
+    
+    res.json({
+      success: true,
+      available: isAvailable,
+      message: isAvailable ? 'Horario disponible' : 'Horario ocupado'
+    });
+    
+  } catch (error) {
+    console.error('Error checking availability:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al verificar disponibilidad'
+    });
+  }
+});
 
+// NUEVO: Endpoint para cancelar cita
+app.delete('/api/appointments/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const [result] = await db.query(
+      'DELETE FROM solicitud_citas WHERE id = ?',
+      [id]
+    );
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Cita no encontrada'
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Cita cancelada exitosamente'
+    });
+    
+  } catch (error) {
+    console.error('Error deleting appointment:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al cancelar la cita'
+    });
+  }
+});
+// -----------------------------------------------------------------------
 
 // Obtener todos los odontólogos
 app.get('/api/odontologos', async (req, res) => {
@@ -318,5 +438,4 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
 
