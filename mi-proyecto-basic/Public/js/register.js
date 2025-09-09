@@ -29,6 +29,7 @@ function selectGender(element, value) {
     updateProgress();
 }
 
+// ............
 // Toggle password visibility
 function togglePassword(fieldId) {
     const field = document.getElementById(fieldId);
@@ -180,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
             strengthText.className = 'strength-text strength-strong';
         }
         //---
-        
+
         updateProgress();
     });
     
