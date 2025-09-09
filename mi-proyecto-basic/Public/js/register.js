@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
             strengthText.textContent = 'Contraseña fuerte';
             strengthText.className = 'strength-text strength-strong';
         }
+        //---
         
         updateProgress();
     });
