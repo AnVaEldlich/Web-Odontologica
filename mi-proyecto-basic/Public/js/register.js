@@ -21,6 +21,7 @@ function generateYears() {
     }
 }
 
+// ............
 // Seleccionar género
 function selectGender(element, value) {
     document.querySelectorAll('.radio-group').forEach(group => group.classList.remove('selected'));
